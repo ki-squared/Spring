@@ -1,12 +1,15 @@
 package kr.ac.jejunu.user;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.DriverManager;
 
-public class HallaUserDao extends UserDao {
+public class JejuConnectionMaker implements ConnectionMaker {
     @Override
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+    public Connection getConnection() throws ClassNotFoundException, SQLException{
+        // Where is the data stored? MySQL
+
+        // Load Driver
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         // Make Connection
@@ -16,5 +19,4 @@ public class HallaUserDao extends UserDao {
                 , "root", "root"
         );
     }
-
 }

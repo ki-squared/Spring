@@ -2,9 +2,14 @@ package kr.ac.jejunu.user;
 
 import java.sql.*;
 
-public abstract class UserDao {
+public class UserDao {
+    private final ConnectionMaker connectionMaker;
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
+
     public User findById(Integer id) throws ClassNotFoundException, SQLException {
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.getConnection();
 
         // Make Query - Use PreparedStatement to cache only one sentence(the line right below)
         PreparedStatement preparedStatement = connection.prepareStatement("select id, name, password from userinfo where id=?");
@@ -31,7 +36,7 @@ public abstract class UserDao {
 
 
     public void insert(User user) throws ClassNotFoundException, SQLException {
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("insert into userinfo (name, password) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, user.getName());
         preparedStatement.setString(2, user.getPassword());
@@ -44,18 +49,12 @@ public abstract class UserDao {
         preparedStatement.close();
         connection.close();
     }
-    abstract public Connection getConnection() throws ClassNotFoundException, SQLException;
-//    {
+//    public Connection getConnection() throws ClassNotFoundException, SQLException {
 //        // Where is the data stored? MySQL
 //
 //        // Load Driver
-//        Class.forName("com.mysql.cj.jdbc.Driver");
 //
 //        // Make Connection
-//        return DriverManager.getConnection(
-//                "jdbc:mysql://localhost/kakao?" +
-//                        "characterEncoding=utf-8&serverTimezone=UTC"
-//                , "root", "root"
-//        );
+//        return connectionMaker.getConnection();
 //    }
 }
