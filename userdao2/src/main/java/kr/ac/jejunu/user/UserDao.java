@@ -3,7 +3,7 @@ package kr.ac.jejunu.user;
 import java.sql.*;
 
 public class UserDao {
-    public User get(Integer id) throws ClassNotFoundException, SQLException {
+    public User findById(Integer id) throws ClassNotFoundException, SQLException {
         // Where is the data stored? MySQL
 
         // Load Driver
@@ -28,7 +28,7 @@ public class UserDao {
         User user = new User();
         user.setId(resultSet.getInt("id"));
         user.setName(resultSet.getString("name"));
-        user.setName(resultSet.getString("password"));
+        user.setPassword(resultSet.getString("password"));
 
         // Free Resources
         resultSet.close();
@@ -37,5 +37,24 @@ public class UserDao {
 
         // Return result
         return user;
+    }
+
+    public void insert(User user) throws ClassNotFoundException, SQLException {
+        // Where is the Data stored? => MySQL
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/kakao?" +
+                        "characterEncoding=utf-8&serverTimezone=UTC"
+                ,"root","root");
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into userinfo (name, password) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1, user.getName());
+        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.executeUpdate();
+
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        resultSet.next();
+
+        user.setId(resultSet.getInt(1));
+        preparedStatement.close();
+        connection.close();
     }
 }
