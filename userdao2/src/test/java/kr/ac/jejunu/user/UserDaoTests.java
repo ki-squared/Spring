@@ -14,8 +14,9 @@ public class UserDaoTests {
         Integer id = 1;
         String name = "Jade";
         String password = "1234";
+        DaoFactory daoFactory = new DaoFactory();
 
-        UserDao userDao = new UserDao(new JejuConnectionMaker());
+        UserDao userDao = daoFactory.getUserDao();
         User user = userDao.findById(id);
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
@@ -31,7 +32,8 @@ public class UserDaoTests {
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-        UserDao userDao = new UserDao(new JejuConnectionMaker());
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
         userDao.insert(user);
 
         User inserted_user = userDao.findById(user.getId());
@@ -47,8 +49,8 @@ public class UserDaoTests {
         Integer id = 1;
         String name = "Jade";
         String password = "1234";
-
-        UserDao userDao = new UserDao(new HallaConnectionMaker());
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao =daoFactory.getUserDao();
         User user = userDao.findById(id);
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
@@ -64,7 +66,8 @@ public class UserDaoTests {
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-        UserDao userDao = new UserDao(new HallaConnectionMaker());
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
         userDao.insert(user);
 
         User inserted_user = userDao.findById(user.getId());

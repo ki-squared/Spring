@@ -1,2 +1,4 @@
 kr/ac/jejunu/user/UserDaoTests.java
  kr.ac.jejunu.user.UserDaoTests
+kr/ac/jejunu/user/DaoFactory.java
+ kr.ac.jejunu.user.DaoFactory
