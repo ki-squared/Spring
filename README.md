@@ -1,6 +1,7 @@
 # Kakao Track - Spring Framework
 
-> 카카오 회사에서 웹을 기반한 서비스로 가장 많이 활용하고 있는 기술들을 배우며TDD(Test-Driven-Development)를 코딩 습관으로 녹이는 방법을 배우는 강좌.
+> 카카오 회사에서 웹을 기반한 서비스로 가장 많이 활용하고 있는 기술들을 배우며,
+> TDD(Test-Driven-Development)를 코딩 습관으로 녹이는 방법을 배우는 강좌.
 
 - 개발 언어 : Java
 - 프레임워크 : Spring (개발 노하우 → 디자인 패턴 → 프레임워크)
