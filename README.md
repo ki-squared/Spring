@@ -1,7 +1,7 @@
 # Kakao Track - Spring Framework
 
 > 카카오 회사에서 웹을 기반한 서비스로 가장 많이 활용하고 있는 기술들을 배우며,
-> TDD(Test-Driven-Development)를 코딩 습관으로 녹이는 방법을 배우는 강좌.
+> TDD를 코딩 습관으로 녹이는 방법을 배우는 강좌.
 
 - 개발 언어 : Java
 - 프레임워크 : Spring (개발 노하우 → 디자인 패턴 → 프레임워크)
@@ -29,7 +29,7 @@
         🌱 **참고 - 1**
 
         ```
-        **Object Oriented** 
+        Object Oriented 
 
         - Encapsulation : 객체의 Field와 Method를 하나로 묶고, 실제 구현 내용 일부를 은닉
         - Abstraction : 객체의 설계도(이또한 class)를 만드는 것
@@ -42,13 +42,13 @@
         **🌱 참고 - 2**
 
         ```
-        **Object Oriented Design Principle - SOLID**
+        Object Oriented Design Principle - SOLID
 
         - SRP(Single Responsibility Principle) - Class, Method는 한가지 책임만을 가진다.
         - OCP(Open/Close Principle) - 변경에는 닫혀있고, 확장에는 열려있어야 한다. 
         - LSP(Liskov Substitution Principle) - 자식 Object는 부모 Object로의 치환 가능하다.
         - ISP(Interface Segregation Principle) - Interface는 다양한 기능으로 분리해야 한다.
-        - **DIP(Dependency Inversion Principle)** - Spring에서 다룰 내용
+        - DIP(Dependency Inversion Principle) - Spring에서 다룰 내용
         ```
 
         ```java
@@ -87,9 +87,9 @@
     **🌱 참고**
 
     ```
-    **Design Pattern
+    Design Pattern
 
-    -** Template Method Pattern
+    - Template Method Pattern
     - Factory Method Pattern
     - Strategy Pattern
     - Template/Callback Pattern
