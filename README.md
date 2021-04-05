@@ -135,6 +135,7 @@
         option+command+M -> Extract Method
         ```
 
+
     요구사항 2 : DB 분리! UserDao가 Connection을 맺는 DB가 분리되어야 한다. 
 
     - Abstraction
@@ -146,6 +147,7 @@
         ```
         ex. Connection에 대해 JejuUserDao와 HallaUserDao, 즉 UserDao의 자식이 결정
         ```
+
 
     요구사항 3 : 상품 등록 기능이 추가!
 
@@ -173,7 +175,6 @@
 
     - Strategy Pattern
 
-        ![Kakao%20Track%20-%20Spring%20Framework%206c7bc6428d8e4193b978a2ea8c0fe6cd/Untitled.png](Kakao%20Track%20-%20Spring%20Framework%206c7bc6428d8e4193b978a2ea8c0fe6cd/Untitled.png)
 
         Context : 변하지 않는 것
 
