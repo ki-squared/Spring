@@ -120,3 +120,76 @@
         : 하나의 객체가 다른 객체의 의존성을 제공하는 테크닉
 
         : 객체의 생성과 사용의 관심을 분리하여 가독성, 코드 재사용을 높인다.
+        
+ ## 4. DI & Spring
+
+- Week - 4
+
+    요구사항 1 : 사용자 추가 기능 → UserDaoTests에 insert() 추가
+
+    - Extract Method
+
+         DB Connection 연결하는 부분과 같이 중복 사용하는 기능 부분 추출
+
+        ```
+        option+command+M -> Extract Method
+        ```
+
+    요구사항 2 : DB 분리! UserDao가 Connection을 맺는 DB가 분리되어야 한다. 
+
+    - Abstraction
+
+        - Template Method Pattern :  abstract class에 대한 상속 기반의 메소드 구현 패턴
+
+        - Factory Method Pattern : 상속 기반의 추상화를 통해 특정 Object에 대해 자식이 결정
+
+        ```
+        ex. Connection에 대해 JejuUserDao와 HallaUserDao, 즉 UserDao의 자식이 결정
+        ```
+
+    요구사항 3 : 상품 등록 기능이 추가!
+
+    - Refactoring
+
+        → 현재 중복되는 기능들을 Refactoring!
+
+    - Interface
+
+        추상화된 Method 밖에 존재하지 않는 Interface "ConnectionMaker"
+
+        → Class-Level 추상화
+
+    - Dependency
+
+        ```java
+        private final ConnectionMaker = new JejuConnectionMaker();
+        // Dependency 발생!
+        // UserDao는 ConnectionMaker를 사용하고 싶은 것, JejuConnection Maker X
+        ```
+
+        → "new"할 생성자를 만든다. 
+
+        → JejuConnectionMaker는 UserDao가 아닌 UserDaoTests(사용자)가 만들어 사용
+
+    - Strategy Pattern
+
+        ![Kakao%20Track%20-%20Spring%20Framework%206c7bc6428d8e4193b978a2ea8c0fe6cd/Untitled.png](Kakao%20Track%20-%20Spring%20Framework%206c7bc6428d8e4193b978a2ea8c0fe6cd/Untitled.png)
+
+        Context : 변하지 않는 것
+
+        Strategy : 변하는 것
+
+        ```
+        UserDao에서 변하지 않는 부분 -> PrepareStatement ... return user;
+        UserDao에서 변하는 부분 -> Connection
+        ```
+
+    - Client Dependency 제거
+
+        : DaoFactory에 Dependency 주입 → **DI(Dependency Injection)**
+
+        : DaoFactory가 바로 **Spring**!
+
+        → Spring의 Core는 의존성에 대한 처리!       
+        
+ 
