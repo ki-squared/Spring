@@ -1,6 +1,10 @@
 package kr.ac.jejunu.user;
 
+import org.hamcrest.core.IsNull;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
 
@@ -9,73 +13,80 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.Matchers.greaterThan;
 
 public class UserDaoTests {
+    String name = "jeju";
+    String password = "jejupw";
+
+    private static UserDao userDao;
+
+    // Spring을 사용하기!
+    @BeforeAll
+    public static void setup() {
+        // ApplicationContext : Bean을 관리
+        // Bean, Configuration 모두 Annotation > Annotation을 이용해서 Bean을 관리 -> Strategy Pattern
+        // DaoFactory에 Bean의 정의가 Annotation으로 되어 있음!
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
+        userDao = applicationContext.getBean("userDao", UserDao.class); // userDao는 메소드 이름! > Dependency Lookup
+
+    }
+
     @Test
     public void get() throws ClassNotFoundException, SQLException {
         Integer id = 1;
-        String name = "Jade";
-        String password = "1234";
-        DaoFactory daoFactory = new DaoFactory();
-
-        UserDao userDao = daoFactory.getUserDao();
-        User user = userDao.findById(id);
+        // Spring이 하게 된다!
+//        DaoFactory daoFactory = new DaoFactory();
+//        UserDao userDao = daoFactory.getUserDao();
+        User user = userDao.get(id);
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
         assertThat(user.getPassword(), is(password));
     }
 
-    // 새 요구사항! DB에 사용자를 추가하는 기능을 넣어달라!
     @Test
-    public void insert() throws SQLException, ClassNotFoundException {
-        String name = "Jade";
-        String password = "1234";
-
+    public void insert() throws SQLException {
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-        DaoFactory daoFactory = new DaoFactory();
-        UserDao userDao = daoFactory.getUserDao();
+        // Spring이 하게 된다.
+//        DaoFactory daoFactory = new DaoFactory();
+//        UserDao userDao = daoFactory.getUserDao();
         userDao.insert(user);
-
-        User inserted_user = userDao.findById(user.getId());
         assertThat(user.getId(), greaterThan(0));
-        assertThat(inserted_user.getId(), is(user.getId()));
+
+        User inserted_user = userDao.get(user.getId());
         assertThat(inserted_user.getName(), is(user.getName()));
         assertThat(inserted_user.getPassword(), is(user.getPassword()));
 
     }
 
     @Test
-    public void getHalla() throws ClassNotFoundException, SQLException {
-        Integer id = 1;
-        String name = "Jade";
-        String password = "1234";
-        DaoFactory daoFactory = new DaoFactory();
-        UserDao userDao =daoFactory.getUserDao();
-        User user = userDao.findById(id);
-        assertThat(user.getId(), is(id));
-        assertThat(user.getName(), is(name));
-        assertThat(user.getPassword(), is(password));
-    }
-
-    // 새 요구사항! DB에 사용자를 추가하는 기능을 넣어달라!
-    @Test
-    public void insertHalla() throws SQLException, ClassNotFoundException {
-        String name = "Jade";
-        String password = "1234";
-
+    public void update() throws SQLException {
+        // Test Data 등록
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-        DaoFactory daoFactory = new DaoFactory();
-        UserDao userDao = daoFactory.getUserDao();
         userDao.insert(user);
 
-        User inserted_user = userDao.findById(user.getId());
-        assertThat(user.getId(), greaterThan(0));
-        assertThat(inserted_user.getId(), is(user.getId()));
-        assertThat(inserted_user.getName(), is(user.getName()));
-        assertThat(inserted_user.getPassword(), is(user.getPassword()));
+        String updatedName = "민주";
+        String updatedPassword = "1111";
+        user.setName(updatedName);
+        user.setPassword(updatedPassword);
 
+        userDao.update(user);
+        User updatedUser = userDao.get(user.getId());
+        assertThat(updatedUser.getName(), is(updatedName));
+        assertThat(updatedUser.getPassword(), is(updatedPassword));
+    }
+
+    @Test
+    public void delte() throws SQLException {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        userDao.insert(user);
+        userDao.delete(user.getId());
+
+        User deletedUser = userDao.get(user.getId());
+        assertThat(deletedUser, IsNull.nullValue());
     }
 
 }
