@@ -193,4 +193,103 @@
 
         → Spring의 Core는 의존성에 대한 처리!       
         
- 
+ ## 5. Spring
+
+- Week - 5
+    - Spring 으로 바꾸는 작업
+
+        ```groovy
+        /* build.gradle */
+
+        ext {
+        	springVersion = '5.2.5.RELEASE'
+        }
+
+        dependencies {
+        	implementation "org.springframework:spring-core:${springVersion}"
+        	implementation "org.springframework:spring-context:${springVersion}"
+        }
+        ```
+
+        : DaoFactory를 Spring으로 변환
+
+        ```java
+        @Configuration
+        public class DaoFacotory {
+        	// DaoFactory > 설정
+
+        	@Bean
+        	public UserDao getUserDao() {
+        		return new UserDao(connectionMaker());
+        	}
+
+        	@Bean
+        	public ConnectionMaker connectionMaker() {
+        		return new JejuConnectionMaker();
+        	}
+        }
+        ```
+
+        - Annotations
+
+            @Configuration
+
+            : Bean을 정의하는 것
+
+            @Bean
+
+            : Dependency를 가진 "new"를 Spring이 해주는 Object Instance 생성
+
+        : UserDaoTests
+
+        ```java
+        @BeforeAll
+            public static void setup() {
+                ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
+        				userDao = applicationContext.getBean("userDao", UserDao.class);    
+        }
+        ```
+
+        : ApplicationContext는 Bean을 관리
+
+        : DaoFactory라는 클래스에 Bean이 Annotation으로 정의되어 있음을 표시
+
+    - Dependency Lookup
+
+        Instance를 new하며 dependency를 관리하는 것에 DI가 완료된 Instance를 Lookup
+
+    - Spring
+
+        - ConnectionMaker → jdbc library ⇒ DataSource
+
+           : DataSource는 DB Connection과 관련된 여러가지 인터페이스를 제공 
+
+        - Connection과 관련한 field는 배포한 환경에 따라 환경변수로 설정하도록 변환
+
+           : Property Injection
+
+           : 프로그램이 DB Connection과 관련한 Dependency를 가질 필요가 없게 된다. 
+
+        ```java
+        @Value("db.classname")
+        private String classname;
+        ```
+
+        ```
+        Edit Configurations
+
+        DB_CLASSNAME > com.mysql.cj.jdbc.Driver 
+        DB_URL > jdbc:mysql://localhost/kakao?characterEncoding=utf-8&serverTimezone=UTC
+        DB_USERNAME > root
+        DB_PASSWORD > root
+        ```
+
+    - 추가 요구사항
+
+        : 사용자 수정, 사용자 삭제 기능 추가
+
+        1) Test Case 생성
+
+        2) UserDao Method 추가
+
+        3) Test & Debug
