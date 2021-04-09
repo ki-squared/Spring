@@ -293,3 +293,46 @@
         2) UserDao Method 추가
 
         3) Test & Debug
+
+## 6. Refactoring
+
+- Week - 6
+    - Refactoring 시각
+
+        StatementStrategy를 사용하여 PreparedStatement를 생성하는 부분 변형
+
+        ```java
+        public interface StatementStrategy {
+
+            public PreparedStatement makeStatement(Object object, Connection connection) throws SQLException;
+        }
+        ```
+
+        : abstract method로 기능을 빼면 makeStatement는 기능 한가지 만을 구현할 수 있다. 
+
+        : Connection을 맺는 부분은 같은 기능(DB 소스만 다름)이었으나 PreparedStatement는 다른 기능을 수행하기 때문에 interface라는 더 상위 추상화를 진행한다. 
+
+        : JdbcContext
+
+    - Template/Callback Pattern
+
+        ```java
+        public void update(User user) throws SQLException {
+                jdbcContext.jdbcContextForUpdate(connection -> {
+                    PreparedStatement preparedStatement;
+                    preparedStatement = connection.prepareStatement("update userinfo set name=?, password=? where id=?");
+                    preparedStatement.setString(1, user.getName());
+                    preparedStatement.setString(2, user.getPassword());
+                    preparedStatement.setInt(3, user.getId());
+                    return preparedStatement;
+                });
+            }
+        ```
+
+        : Java는 Method의 Parameter로 Method를 받을 수 없다. 
+
+        : JavaScript는 Functional Programming Language이나 Java는 아니다.
+
+        : 다음과 같은 노테이션은 람다로, Java8부터 Java를 Functional Programming Language처럼 사용할 수 있도록 한다. 
+
+        : 지금 실행되는 것이 아니고, Method를 Parameter로 전해주는 형태로 Call Back!
