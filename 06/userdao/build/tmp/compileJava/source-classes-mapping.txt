@@ -1,13 +1,5 @@
 kr/ac/jejunu/user/User.java
  kr.ac.jejunu.user.User
-kr/ac/jejunu/user/InsertStatementStrategy.java
- kr.ac.jejunu.user.InsertStatementStrategy
-kr/ac/jejunu/user/GetStatementStrategy.java
- kr.ac.jejunu.user.GetStatementStrategy
-kr/ac/jejunu/user/UpdateStatementStrategy.java
- kr.ac.jejunu.user.UpdateStatementStrategy
-kr/ac/jejunu/user/DeleteStatementStrategy.java
- kr.ac.jejunu.user.DeleteStatementStrategy
 kr/ac/jejunu/user/StatementStrategy.java
  kr.ac.jejunu.user.StatementStrategy
 kr/ac/jejunu/user/UserDao.java
