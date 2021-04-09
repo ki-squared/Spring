@@ -10,9 +10,9 @@ kr/ac/jejunu/user/DeleteStatementStrategy.java
  kr.ac.jejunu.user.DeleteStatementStrategy
 kr/ac/jejunu/user/StatementStrategy.java
  kr.ac.jejunu.user.StatementStrategy
-kr/ac/jejunu/user/jdbcContext.java
- kr.ac.jejunu.user.jdbcContext
 kr/ac/jejunu/user/UserDao.java
  kr.ac.jejunu.user.UserDao
+kr/ac/jejunu/user/JdbcContext.java
+ kr.ac.jejunu.user.JdbcContext
 kr/ac/jejunu/user/DaoFactory.java
  kr.ac.jejunu.user.DaoFactory

@@ -1,12 +1,11 @@
 package kr.ac.jejunu.user;
 
-import javax.sql.DataSource;
 import java.sql.*;
 
 public class UserDao {
-    private final jdbcContext jdbcContext;
+    private final JdbcContext jdbcContext;
 
-    public UserDao(jdbcContext jdbcContext) {
+    public UserDao(JdbcContext jdbcContext) {
         this.jdbcContext = jdbcContext;
     }
 
@@ -27,20 +26,6 @@ public class UserDao {
 
     public void delete(Integer id) throws SQLException {
         StatementStrategy statementStrategy = new DeleteStatementStrategy(id);
-        jdbcContext.jdbcContextForUpdate(statementStrategy);
-    }
-
-    private User jdbcContextForGet(StatementStrategy statementStrategy) throws SQLException {
-        return jdbcContext.jdbcContextForGet(statementStrategy);
-    }
-
-
-    private void jdbcContextForInsert(User user, StatementStrategy statementStrategy) throws SQLException {
-        jdbcContext.jdbcContextForInsert(user, statementStrategy);
-    }
-
-
-    private void jdbcContextForUpdate(StatementStrategy statementStrategy) throws SQLException {
         jdbcContext.jdbcContextForUpdate(statementStrategy);
     }
 }

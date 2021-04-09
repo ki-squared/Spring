@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class jdbcContext {
+public class JdbcContext {
     private final DataSource dataSource;
 
-    public jdbcContext(DataSource dataSource) {
+    public JdbcContext(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -17,17 +17,18 @@ public class jdbcContext {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        User user;
+        User user = null;
         try {
             connection = dataSource.getConnection();
             preparedStatement = statementStrategy.makeStatement(connection);
             resultSet = preparedStatement.executeQuery();
-            resultSet.next();
 
-            user = new User();
-            user.setId(resultSet.getInt("id"));
-            user.setName(resultSet.getString("name"));
-            user.setPassword(resultSet.getString("password"));
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setPassword(resultSet.getString("password"));
+            }
         } finally {
             try {
                 connection.close();

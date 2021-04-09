@@ -13,7 +13,7 @@ public class GetStatementStrategy implements StatementStrategy {
     @Override
     public PreparedStatement makeStatement(Connection connection) throws SQLException {
         PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement("select id, name, password from userinfo where id=?");
+        preparedStatement = connection.prepareStatement("select * from userinfo where id=?");
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }

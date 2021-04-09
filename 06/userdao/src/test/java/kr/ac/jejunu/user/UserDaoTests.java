@@ -1,6 +1,5 @@
 package kr.ac.jejunu.user;
 
-import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
@@ -8,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.nullValue;
 
 
 import java.sql.SQLException;
@@ -73,9 +73,10 @@ public class UserDaoTests {
         assertThat(updatedUser.password, is(updatedPassword));
     }
 
-    public void delete() throws SQLException, ClassNotFoundException {
-        String name = "Hi";
-        String password  ="bedeleted";
+    @Test
+    public void delete() throws SQLException {
+        String name = "강민주";
+        String password  ="1111";
         User user = new User();
         user.setName(name);
         user.setPassword(password);
@@ -84,6 +85,6 @@ public class UserDaoTests {
 
         userDao.delete(user.getId());
         User deletedUser = userDao.get(user.getId());
-        assertThat(deletedUser, IsNull.nullValue());
+        assertThat(deletedUser, nullValue());
     }
 }
