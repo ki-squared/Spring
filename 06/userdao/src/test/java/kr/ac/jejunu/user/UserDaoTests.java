@@ -73,7 +73,7 @@ public class UserDaoTests {
         assertThat(updatedUser.password, is(updatedPassword));
     }
 
-    public void delte() throws SQLException, ClassNotFoundException {
+    public void delete() throws SQLException, ClassNotFoundException {
         String name = "Hi";
         String password  ="bedeleted";
         User user = new User();
