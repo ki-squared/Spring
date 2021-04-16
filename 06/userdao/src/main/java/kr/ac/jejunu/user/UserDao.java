@@ -1,8 +1,10 @@
 package kr.ac.jejunu.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
@@ -14,12 +16,10 @@ public class UserDao {
     }
 
     public User get(Integer id) throws SQLException {
-        String sql = "select * from userinfo where id=?";
+        String sql = "select * from  userinfo where id = ?";
         Object[] params = new Object[]{id};
-        // row mapper
         return jdbcTemplate.query(sql, rs -> {
             User user = null;
-
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("id"));
