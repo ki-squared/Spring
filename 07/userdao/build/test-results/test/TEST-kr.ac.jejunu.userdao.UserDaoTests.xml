@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="kr.ac.jejunu.userdao.UserDaoTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-04-19T06:35:54" hostname="Jade-MacBookPro.local" time="0.539">
+  <properties/>
+  <testcase name="testGet()" classname="kr.ac.jejunu.userdao.UserDaoTests" time="0.439"/>
+  <testcase name="testHallaInsert()" classname="kr.ac.jejunu.userdao.UserDaoTests" time="0.041"/>
+  <testcase name="testHallaGet()" classname="kr.ac.jejunu.userdao.UserDaoTests" time="0.019"/>
+  <testcase name="testInsert()" classname="kr.ac.jejunu.userdao.UserDaoTests" time="0.036"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -2,7 +2,7 @@ package kr.ac.jejunu.userdao;
 
 import java.sql.*;
 
-public class UserDao {
+abstract public class UserDao {
     public User get(Integer id) throws ClassNotFoundException, SQLException {
         Connection connection = getConnection();
         PreparedStatement preparedStatement =
@@ -24,10 +24,6 @@ public class UserDao {
         return user;
     }
 
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/kakao?characterEncoding=utf-8&serverTimezone=UTC", "root", "root");
-    }
 
     public void insert(User user) throws ClassNotFoundException, SQLException {
         Connection connection = getConnection();
@@ -38,11 +34,14 @@ public class UserDao {
         preparedStatement.executeUpdate();
         ResultSet resultSet = preparedStatement.getGeneratedKeys();
         resultSet.next();
-
-        user.setId(resultSet.getInt("id"));
+        user.setId(resultSet.getInt(1));
 
         resultSet.close();
         preparedStatement.close();
         connection.close();
     }
+    abstract public Connection getConnection() throws ClassNotFoundException, SQLException; //{
+//        Class.forName("com.mysql.cj.jdbc.Driver");
+//        return DriverManager.getConnection("jdbc:mysql://localhost/kakao?characterEncoding=utf-8&serverTimezone=UTC", "root", "root");
+//    }
 }
