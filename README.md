@@ -336,3 +336,63 @@
         : 다음과 같은 노테이션은 람다로, Java8부터 Java를 Functional Programming Language처럼 사용할 수 있도록 한다. 
 
         : 지금 실행되는 것이 아니고, Method를 Parameter로 전해주는 형태로 Call Back!
+
+## 8. Annotation 기반 Tool
+
+- Week - 9
+    1. Lombok
+
+        [https://projectlombok.org/setup/gradle](https://projectlombok.org/setup/gradle)
+
+        ```java
+        /* build.gradle */
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.20'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+        ```
+
+        외부 Access를 위한 Getter, Setter의 attribute은 왜 private으로 만들까?
+
+        ⇒ 민감한 정보에 대한 보안을 위해(Getter에 보안장치 삽입 가능)
+
+        Lombok은 필요하지만 많은 line을 차지하는 Getter, Setter에 대한 해결책?
+
+        ```java
+        package kr.ac.jejunu.userdao;
+
+        import lombok.Getter;
+        import lombok.Setter;
+
+        @Getter
+        @Setter
+        public class User {
+            private Integer id;
+            private String name;
+            private String password;
+        }
+        ```
+
+        +) Preferences → Annotation Processors → Enable Annotation Processing
+
+        ```java
+        @Getter
+        @Setter
+        @Builder
+        @NoArgsConstructor // 기본 생성자
+        @AllArgsConstructor // 지금 존재하는 property에 대한 모든 생성자
+        public class User {
+            private Integer id;
+            private String name;
+            private String password;
+        }
+        ```
+
+        ```java
+        User user = User.builder().name(name).password(password).build();
+        ```
+
+        +) equals → hashcode에 대한 비교!
+
+        - Object Hash Code, toString()에 대한 이야기
