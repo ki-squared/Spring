@@ -8,12 +8,14 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
+@Component
 public class UserDao {
-    private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    public UserDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    public UserDao(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public User get(Integer id) throws SQLException {
         String sql = "select * from  userinfo where id = ?";

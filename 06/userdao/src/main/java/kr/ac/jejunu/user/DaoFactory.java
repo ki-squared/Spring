@@ -20,8 +20,8 @@ public class DaoFactory {
     @Value("${db.password}")
     private String password;
 
-    @Bean
-    public UserDao userDao() {return new UserDao(jdbcTemplate());}
+//    @Bean
+//    public UserDao userDao() {return new UserDao(jdbcTemplate());}
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
