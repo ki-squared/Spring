@@ -396,3 +396,108 @@
         +) equals → hashcode에 대한 비교!
 
         - Object Hash Code, toString()에 대한 이야기
+
+
+
+## 9. Spring 심화, Web Application
+
+- Week - 9, 10, 11
+
+    - ApplicationContext 계층구조 - 자식만이 부모의 Bean을 참조할 수 있는 구조
+    - Bean Scope
+
+        Singleton(Default), prototype, request, session, application, websocket
+
+    - Lombok
+    - Java Web Application
+
+        → War, 구조
+
+        ```
+        WebContent
+        		Meta-INF
+        		WEB-INF
+        			lib
+        			views
+        					repository.xml
+        					servlet-context.xml
+        					web.xml -> 웹 구동을 위한 정보
+        ```
+
+    → Sevlet
+
+    ```java
+    public void init(ServletConfig config) throws ServletException;
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;
+    public void destroy();
+    ```
+
+    : WAS는 이미 Servlet을 구동할 수 있게 완료되어 있다. 
+
+    : Sevlet 처음 로딩 시 Init() 구동 : 처음 request 시 한번만 수행
+
+    : service()는 request 마다 한번씩 동작
+
+    - 실습 - (구조)
+
+        ```
+        main
+        		webapp
+        				WEB-INF
+        						web.xml
+        ```
+
+        → servlet API를 포함한 라이브러리
+
+        : 'javax.servlet:javax.servlet-api:4.0.1'
+
+        : plugin : id 'war'
+
+    →  Filter
+
+    ```java
+    public void init(FilterConfig filterConfig) throws ServletException;
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException;
+    public void destroy();
+    ```
+
+    : Servlet 수행 전과 후에 공통적으로 수행될 logic이 있다면!
+
+    : doFilter in → Servlet service → doFilter out
+
+    → Listener
+
+    ```
+    javax.servlet.ServletContextListener : 컨텍스트 초기화, 마무리
+    javax.servlet.ServletContextAttributeListener : 컨텍스트에 속성 추가, 제거
+    javax.servlet.http.HttpSessionListener : 동시 사용자 얼마나?
+    javax.servlet.ServletRequestListener : 요청 시 로그
+    javax.servlet.ServletRequestAttributeListener : Request 속성 추가, 제거 수정 여부
+    javax.servlet.http.HttpSessionBindingListener : 속성 객체가 세션에 바인딩 됐는지 제거 됐는지 여부
+    ```
+
+    : Listener (ContextInitialized) → Filter init → Servlet init → Filter doFilter in → ...
+
+    : Servlet destroy → Filter destroy → Listener (ContextDestroyed)
+
+    : Listener (ContextInitialized) → Filter init → Listener (Request Init) → Servlet init
+
+    → JSP
+
+    ```
+    <%@ page import="org.springframework.context.ApplicationContext" %>
+    <%@ page import="org.springframework.context.annotation.AnnotationConfigApplicationContext" %>
+    <%@ page import="kr.ac.jejunu.userdao.UserDao" %>
+    <%@ page import="kr.ac.jejunu.userdao.User" %>
+    <%@ page contentType="text/html; charset=UTF-8" %>
+    <%
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext("kr.ac.jejunu.userdao");
+        UserDao userDao = applicationContext.getBean("userDao", UserDao.class);
+        User user = userDao.get(200);
+    %>
+    <html>
+        <h1>
+            Hello <%=user.getName()%>!!!
+        </h1>
+    </html>
+    ```
