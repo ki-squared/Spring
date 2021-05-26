@@ -2,11 +2,13 @@ package kr.ac.jejunu.userdao;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.*;
 import java.io.IOException;
 import java.io.ObjectInputFilter;
 
+@Controller
 public class UserServlet extends GenericServlet{
     private UserDao userDao;
 
