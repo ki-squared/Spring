@@ -34,6 +34,7 @@ public class UserServlet extends GenericServlet{
         stringBuffer.append("</h1>");
         stringBuffer.append("</html>");
 
+        res.setContentType("text/html:charset=UTF-8");
         res.getWriter().println(stringBuffer.toString());
     }
 }
