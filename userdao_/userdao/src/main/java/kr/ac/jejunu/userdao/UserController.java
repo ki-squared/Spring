@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
 @Controller
-@RequestMapping
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserDao userDao;
 
-    @RequestMapping("/user")
+    @RequestMapping(value = "/user", params = "")
     public User getUser(@RequestParam("id") Integer id) {
         System.out.println("******************* User *******************");
         return userDao.get(id);
