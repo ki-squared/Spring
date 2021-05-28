@@ -501,3 +501,38 @@
         </h1>
     </html>
     ```
+    
+
+
+## 10. Spring MVC
+
+- Week - 11
+
+    Servlet은 환경 관련 로직만 담당하고 JSP는 Servlet이 전달한 모델, Object에 있는 데이터만 꺼내서 브라우저로 전달해주는 Architecture → MVC
+
+    → Spring MVC
+
+    : DispatcherServlet
+
+    : Life Cycle
+
+    ```
+
+    Client -> Dispatcher Servlet -> Handler Mapping
+    -> Controller(HandlerAdapter) -> View Resolver
+    ```
+
+    : Spring에서는 MVC Controller에 해당하는 Dispatcher Servlet이 Client의 모든 요청을 받는다. 이 Dispatcher Servlet은 Handler Mapping을 통해서 Controller(특정 URL 실행)를 매핑, View Resolver가 물리적인 화면을 표현하여 이 매핑된 결과를 화면에 띄워주게 된다. 
+
+    ```
+    implementation "org.springframework:spring-webmvc:${springVersion}"
+    ```
+
+    : Handler Mapping → 어떤 Controller를 사용할 것인지!
+
+    ```
+    BeanNameUrlHandlerMapping(Default)
+    SimpleUrlHandlerMapping
+    RequestMethodHandlerMapping(Default) - 3.1
+    DefaultAnnotationHandlerMapping(Deprecated)
+    ```
