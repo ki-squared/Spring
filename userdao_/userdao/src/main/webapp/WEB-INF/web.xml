@@ -23,6 +23,7 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+<!--    encodingFilter 추가할 것!-->
 <!--    <filter>-->
 <!--        <filter-name>userFilter</filter-name>-->
 <!--        <filter-class>kr.ac.jejunu.userdao.UserFilter</filter-class>-->
