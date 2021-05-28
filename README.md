@@ -536,3 +536,38 @@
     RequestMethodHandlerMapping(Default) - 3.1
     DefaultAnnotationHandlerMapping(Deprecated)
     ```
+    
+    
+    
+    ## 11. SpringMVC - Resolver, View
+
+- Week - 12
+    - View Resolver
+
+        : InternalResourceViewResolver .. → 각 프레임워크에 맞는 View Resolver를 제공해준다. 
+
+    - Etc Resolver
+
+        : view를 해석하는 resolver가 아니고, 예외가 발생했을 때 처리하는 resolver와 파일 업로드를 위한 resolver가 있는데, 파일을 받을 때(request에서) binary-file을 받을 수 있도록 하는 resolver!
+
+        : HandlerExceptionResolver, MultipartResolver(TOMCAT 설정 주의!)
+
+    - TOMCAT file upload 설정
+
+        conf → content.xml
+
+        ```
+        <Context allowCasualMultipartParsing="true" path="/">
+        ```
+
+    - View
+
+    - Interceptor(⇒ Spring의 Filter기능) → [**로그인**](https://cheershennah.tistory.com/107)
+
+        : preHandle, postHandle, afterCompletion
+
+    - Annotation-Driven ⇒ SpringMVC를 쓰면 무조건 넣어야 해!
+
+    - 참고
+
+        [https://cheershennah.tistory.com/107](https://cheershennah.tistory.com/107)
