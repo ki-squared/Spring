@@ -37,6 +37,8 @@ public class UserController {
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
         bufferedOutputStream.write(file.getBytes());
         bufferedOutputStream.close();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("url", "/images" + file.getOriginalFilename());
         return new ModelAndView();
     }
 
