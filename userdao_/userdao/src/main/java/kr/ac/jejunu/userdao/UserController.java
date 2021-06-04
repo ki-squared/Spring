@@ -2,31 +2,35 @@ package kr.ac.jejunu.userdao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 @RequiredArgsConstructor
 public class UserController {
     private final UserDao userDao;
 
-    @RequestMapping(value = "/user", params = "")
-    public User getUser(@RequestParam("id") Integer id) {
+    @GetMapping(value = "/user/{id}")
+    public User getUser(@PathVariable("id") Integer id, HttpSession httpSession) {
         System.out.println("******************* User *******************");
-        return userDao.get(id);
+        User user = userDao.get(id);
+        httpSession.setAttribute("user", user);
+        return user;
+    }
+
+    @GetMapping(value = "/user/session", produces = "application/json")
+    public User sessionUser(HttpSession session) {
+        return (User) session.getAttribute("user");
     }
 
     @RequestMapping(path="/upload", method = RequestMethod.GET)
     public void upload() {
-
     }
 
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
